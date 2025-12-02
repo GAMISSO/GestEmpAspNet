@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Departement Page";
 }
+@model IEnumerable<Models.Departement>
 
 <div class="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow">
 
@@ -24,36 +25,38 @@
         <table class="w-full border-collapse">
             <thead>
                 <tr class="border-b bg-gray-50 text-left text-gray-600">
-                    <th class="p-3">ID</th>
-                    <th class="p-3">Nom</th>
-                    <th class="p-3">Date de création</th>
-                    <th class="p-3">Statut</th>
-                    <th class="p-3">Actions</th>
+                    <th >ID</th>
+                    <th >Nom</th>
+                    <th >Date de création</th>
+                    <th >Statut</th>
+                    <th >Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-
-                <!-- Ligne 1 -->
-                <tr class="border-b">
-                    <td>C00123456</td>
-                    <td >Amadou Diallo</td>
-                    <td >15/03/2023</td>
-                    <td >
-                        <span class="bg-blue-200 text-blue-700 px-2 py-1 rounded-md text-sm font-semibold">
-                            Épargne
-                        </span>
-                    </td>
-                    
-                    <td >
-                        <div>
-                            <a href="#" class="btn btn-sm btn-info">
+                @foreach (var departement in Model)
+                {
+                    <tr class="border-b">
+                        <td >@departement.Id</td>
+                        <td >@departement.Name</td>
+                        <td >@departement.DateCreation.ToString("dd/MM/yyyy")</td>
+                        @if (departement.IsActive)
+                        {
+                            <td > <span class="badge bg-success">Actif</span> </td>
+                        }
+                        else
+                        {
+                            <td > <span class="badge bg-danger">Inactif</span> </td>
+                        }
+                        <td>
+                            <div class="flex gap-2">
+                                <a asp-controller="Employe" asp-action="Index" class="btn btn-sm btn-info">
                                 <i class="fas fa-eye"></i>Employe
                             </a>
-
-                        </div>
-                    </td>
-                </tr>
+                            </div>
+                        </td>
+                    </tr>
+                }
 
             </tbody>
         </table>
